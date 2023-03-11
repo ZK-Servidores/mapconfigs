@@ -4,7 +4,7 @@
 
 #include <sourcemod>
 
-#define PLUGIN_VERSION "1.4"
+#define PLUGIN_VERSION "1.5"
 
 #define CONFIG_DIR "sourcemod/map-cfg/"
 
