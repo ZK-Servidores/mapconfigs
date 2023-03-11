@@ -4,7 +4,7 @@
 
 #include <sourcemod>
 
-#define PLUGIN_VERSION "1.5"
+#define PLUGIN_VERSION "1.4"
 
 #define CONFIG_DIR "sourcemod/map-cfg/"
 
@@ -29,12 +29,6 @@ public void OnPluginStart() {
 	CreateConVar("mc_version", PLUGIN_VERSION, "Map Configs plugin version", FCVAR_DONTRECORD|FCVAR_NOTIFY);
 }
 
-public Action OnLevelInit(const char[] name, char[] entities)
-{
-	ExecuteMapSpecificConfigs("pre.cfg");
-	return Plugin_Continue;
-}
-
 public void OnAutoConfigsBuffered() {
 	ExecuteMapSpecificConfigs();
 }
@@ -43,7 +37,7 @@ public void OnAutoConfigsBuffered() {
 		P L U G I N   F U N C T I O N S
 *****************************************************************/
 
-public void ExecuteMapSpecificConfigs(String:cfgSuffix[] = "cfg") {
+public void ExecuteMapSpecificConfigs() {
 	char currentMap[PLATFORM_MAX_PATH];
 	GetCurrentMap(currentMap, sizeof(currentMap));
 
@@ -72,8 +66,8 @@ public void ExecuteMapSpecificConfigs(String:cfgSuffix[] = "cfg") {
 
 	while (dir.GetNext(configFile, sizeof(configFile), fileType)) {
 		if (fileType == FileType_File) {
-			ExplodeString(configFile, ".", explode, 2, sizeof(explode[]), true);
-			if (StrEqual(explode[1], "cfgSuffix", false)) {
+			ExplodeString(configFile, ".", explode, 2, sizeof(explode[]));
+			if (StrEqual(explode[1], "cfg", false)) {
 				if (strncmp(currentMap, explode[0], strlen(explode[0]), false) == 0) {
 					adt_configs.PushString(configFile);
 				}
