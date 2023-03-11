@@ -1,6 +1,6 @@
 // enforce semicolons after each code statement
 #pragma semicolon 1
-//#pragma newdecls required
+#pragma newdecls required
 
 #include <sourcemod>
 
@@ -73,7 +73,7 @@ public void ExecuteMapSpecificConfigs(String:cfgSuffix[] = "cfg") {
 	while (dir.GetNext(configFile, sizeof(configFile), fileType)) {
 		if (fileType == FileType_File) {
 			ExplodeString(configFile, ".", explode, 2, sizeof(explode[]), true);
-			if (StrEqual(explode[1], cfgSuffix, false)) {
+			if (StrEqual(explode[1], "cfgSuffix", false)) {
 				if (strncmp(currentMap, explode[0], strlen(explode[0]), false) == 0) {
 					adt_configs.PushString(configFile);
 				}
